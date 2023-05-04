@@ -25,18 +25,19 @@
 #
 # ----------------------------------------------------------------------
 
-from bcr_mcp3008 import MCP3008
+from adc.DFRobot_ADS1115 import ADS1115
 
 
 class ADC:
     def __init__(self, config):
-        self.device = config['adc']['device']
-        self.adc = MCP3008(device=self.device)
+        self.adc = ADS1115()
         self.channel = config['adc']['channel']
-        self.ADCMax = pow(2, 10) - 1
-        self.ADCVoltage = 3.3
+        self.ADCMax = 1024
+        self.ADCVoltage = 1.024
+        self.I2CAddress = config['adc'].get('i2c_address', 0x48)
 
     def sample(self):
-        reading = self.adc.readData(self.channel)
+        self.adc.set_addr_ADS1115(self.I2CAddress)  # See the physical switch on the module and change accordingly
+        reading = self.adc.read_voltage(self.channel)['r']
         voltage = (reading / self.ADCMax * self.ADCVoltage)
         return voltage

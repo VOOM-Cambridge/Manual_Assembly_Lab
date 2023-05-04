@@ -2,29 +2,29 @@
   "location_page":{
   "title":"Locations",
   "items":[
-      "Robot Lab Output",
-      "Robot Lab Input"
+      "Goods In",
+      "Goods Out"
     ]
   },
   "capture_page":{
   "fullscreen_modal":false,
   "part_entry":"choose",
-  "part_entry_options":["Gearbox","Gear Big", "Gear Small","Gear Casing Top","Gear Casing Bottom"],
+  "part_entry_options":["PLA material reel", "Big Gear V1", "Small Gear V1", "Big Gear V2", "Small Gear V2" ],
   "clear_part_on_submit": true,
   "event_log_length": 10
   },
 
   "reasons":{
     "rework":[
-      {"id":1,"text":"Incomplete assembly"},
-      {"id":2,"text":"Bad fitting"},
-      {"id":3,"text":"Wrong parts"},
-      {"id":4,"text":"Repairable damage"}
+      {"id":1,"text":"Bad Surface Finish"},
+      {"id":2,"text":"Support structure attached"},
+      {"id":2,"text":"Missing material"},
+      {"id":2,"text":"Excess material"}
     ],
     "scrap":[
-      {"id":1,"text":"Deformed parts"},
-      {"id":2,"text":"Damaged parts"},
-      {"id":3,"text":"Mahcine error"},
+      {"id":1,"text":"Warped parts"},
+      {"id":2,"text":"Delamination of layers"},
+      {"id":3,"text":"Layer offset"},
       {"id":4,"text":"Poor material quality"},
       {"id":5,"text":"Operator error"}
     ]

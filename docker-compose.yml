@@ -51,11 +51,27 @@ services:
         networks:
             internal:
                 aliases:
-                    - timeseries-input.docker.local
+                    - timeseries-input-fault.docker.local
         logging:
             driver: syslog
             options:
                 tag: docker-timeseries-input-fault
+        restart: unless-stopped
+        depends_on:
+            - "timeseries-db"
+            - "mqtt_broker"
+    timeseries-db-input-waste:
+        extends:
+            file: timeseries_sds/app.yml
+            service: telegraf_waste
+        networks:
+            internal:
+                aliases:
+                    - timeseries-input-waste.docker.local
+        logging:
+            driver: syslog
+            options:
+                tag: docker-timeseries-input-waste
         restart: unless-stopped
         depends_on:
             - "timeseries-db"
@@ -88,22 +104,81 @@ services:
         depends_on:
             - "mqtt_broker"
             - "timeseries-db"
- 
-#    current-collection_1:
-#        extends:
-#            file: current_dc_1/app.yml
-#            service: app
-#        networks:
-#            internal:
-#                aliases:
-#                    - current-dc.docker.local
-#        logging:
-#            driver: syslog
-#            options:
-#                tag: docker-current-dc
-#        restart: unless-stopped
-#        depends_on:
-#            - "mqtt_broker"
+    current-collection_1:
+        extends:
+            file: current_dc_1/app.yml
+            service: app
+        networks:
+            internal:
+                aliases:
+                    - current-dc-1.docker.local
+        logging:
+            driver: syslog
+            options:
+                tag: docker-current-dc-1
+        restart: unless-stopped
+        depends_on:
+            - "mqtt_broker"
+    current-collection_2:
+        extends:
+            file: current_dc_2/app.yml
+            service: app
+        networks:
+            internal:
+                aliases:
+                    - current-dc-2.docker.local
+        logging:
+            driver: syslog
+            options:
+                tag: docker-current-dc-2
+        restart: unless-stopped
+        depends_on:
+            - "mqtt_broker"
+    current-collection_3:
+        extends:
+            file: current_dc_3/app.yml
+            service: app
+        networks:
+            internal:
+                aliases:
+                    - current-dc-3.docker.local
+        logging:
+            driver: syslog
+            options:
+                tag: docker-current-dc-3
+        restart: unless-stopped
+        depends_on:
+            - "mqtt_broker"
+    current-collection_4:
+        extends:
+            file: current_dc_4/app.yml
+            service: app
+        networks:
+            internal:
+                aliases:
+                    - current-dc-4.docker.local
+        logging:
+            driver: syslog
+            options:
+                tag: docker-current-dc-4
+        restart: unless-stopped
+        depends_on:
+            - "mqtt_broker"
+    current-collection_5:
+        extends:
+            file: current_dc_5/app.yml
+            service: app
+        networks:
+            internal:
+                aliases:
+                    - current-dc-5.docker.local
+        logging:
+            driver: syslog
+            options:
+                tag: docker-current-dc-5
+        restart: unless-stopped
+        depends_on:
+            - "mqtt_broker"  
     mqtt_broker:
         extends:
             file: mqtt_broker/app.yml

@@ -1,0 +1,14 @@
+{
+  "reasons":{
+    "rework":[
+      {"id":1,"text":"Seperation in reel"},
+      {"id":2,"text":"Poor storage"}
+    ],
+    "scrap":[
+      {"id":1,"text":"Material degraded"},
+      {"id":2,"text":"Poor quality"},
+      {"id":3,"text":"Poor storage"},
+      {"id":4,"text":"Damaged in delivery"}
+    ]
+  }
+}

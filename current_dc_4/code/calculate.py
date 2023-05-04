@@ -25,18 +25,27 @@
 #
 # ----------------------------------------------------------------------
 
-from bcr_mcp3008 import MCP3008
+import logging
+import math
+
+logger = logging.getLogger("main.measure.conversion")
 
 
-class ADC:
+class PowerMonitoringCalculation:
+    one_over_sqrt_2 = 1 / math.sqrt(2)
+
     def __init__(self, config):
-        self.device = config['adc']['device']
-        self.adc = MCP3008(device=self.device)
-        self.channel = config['adc']['channel']
-        self.ADCMax = pow(2, 10) - 1
-        self.ADCVoltage = 3.3
+        calculation_conf = config['calculation']
+        self.AmplifierGain = calculation_conf['amplifier_gain']
+        self.CTRange = calculation_conf['current_range']
+        self.phases = calculation_conf['phases']
+        self.lineVoltage = calculation_conf['voltage']
 
-    def sample(self):
-        reading = self.adc.readData(self.channel)
-        voltage = (reading / self.ADCMax * self.ADCVoltage)
-        return voltage
+    def calculate(self, ADCAverageVoltage):
+        AmplifierVoltageIn = ADCAverageVoltage / self.AmplifierGain
+        CTClampCurrent = AmplifierVoltageIn * self.CTRange
+        RMSCTClampCurrent = CTClampCurrent * self.one_over_sqrt_2
+
+        PowerValue = self.phases * RMSCTClampCurrent * self.lineVoltage
+        logger.debug(f"Vamp: {AmplifierVoltageIn} Irms: {RMSCTClampCurrent} P: {PowerValue}")
+        return {"current": str(RMSCTClampCurrent), "power": str(PowerValue)}

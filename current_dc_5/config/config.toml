@@ -1,5 +1,5 @@
 [constants]
-    machine="Printer_1"	#Name of the machine being monitored (can't have spaces)
+    machine="Printer_5"	#Name of the machine being monitored (can't have spaces)
 
 [adc]
     # uncomment the adc that you are using (default is BCRobotics)
@@ -7,7 +7,7 @@
 #    adc_module = "GroveADC"
 #    adc_module = "GravityADC"
     channel = 1
-    device = 0
+    device = 1
 
 [sampling]
     sample_count = 5

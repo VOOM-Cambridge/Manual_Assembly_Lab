@@ -25,18 +25,19 @@
 #
 # ----------------------------------------------------------------------
 
-from bcr_mcp3008 import MCP3008
+from grove.adc import ADC as GroveADC
+import logging
 
+logger = logging.getLogger("main.measure.adc.grove")
 
 class ADC:
     def __init__(self, config):
-        self.device = config['adc']['device']
-        self.adc = MCP3008(device=self.device)
+        self.adc = GroveADC()
         self.channel = config['adc']['channel']
-        self.ADCMax = pow(2, 10) - 1
+        self.ADCMax = pow(2, 12) - 1
         self.ADCVoltage = 3.3
 
     def sample(self):
-        reading = self.adc.readData(self.channel)
-        voltage = (reading / self.ADCMax * self.ADCVoltage)
+        voltage = self.adc.read_voltage(self.channel) / 1000
+        logger.debug(f"v {voltage}")
         return voltage
