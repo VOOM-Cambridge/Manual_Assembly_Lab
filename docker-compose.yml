@@ -60,22 +60,6 @@ services:
         depends_on:
             - "timeseries-db"
             - "mqtt_broker"
-    # timeseries-db-input-waste:
-    #     extends:
-    #         file: timeseries_sds/app.yml
-    #         service: telegraf_waste
-    #     networks:
-    #         internal:
-    #             aliases:
-    #                 - timeseries-input-waste.docker.local
-    #     logging:
-    #         driver: syslog
-    #         options:
-    #             tag: docker-timeseries-input-waste
-    #     restart: unless-stopped
-    #     depends_on:
-    #         - "timeseries-db"
-    #         - "mqtt_broker"
     dashboard:
         extends:
             file: dashboard_ui/app.yml
@@ -103,7 +87,23 @@ services:
         restart: unless-stopped
         depends_on:
             - "mqtt_broker"
-            - "timeseries-db"  
+            - "timeseries-db"
+    workerTracking:
+        extends:
+            file: workerTracking/app.yml
+            service: workerTracking
+        networks:
+            internal:
+                aliases:
+                    - worker.tracking.docker.local
+        logging:
+            driver: syslog
+            options:
+                tag: docker-worker-tracking
+        restart: unless-stopped
+        depends_on:
+            - "mqtt_broker"
+            - "timeseries-db"
     mqtt_broker:
         extends:
             file: mqtt_broker/app.yml
