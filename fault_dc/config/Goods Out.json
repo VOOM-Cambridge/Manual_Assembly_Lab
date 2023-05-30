@@ -1,17 +1,17 @@
 {
   "reasons":{
     "rework":[
-      {"id":1,"text":"Bad Surface Finish"},
-      {"id":2,"text":"Support structure attached"},
-      {"id":3,"text":"Missing material"},
-      {"id":4,"text":"Excess material"}
+      {"id":1,"text":"Bad assembly"},
+      {"id":2,"text":"Poor quality of parts"},
+      {"id":3,"text":"Inteface between parts"},
+      {"id":4,"text":"Parts do not fit"},
+      {"id":5,"text":"Dmaaged in assembly"}
     ],
     "scrap":[
-      {"id":1,"text":"Warped parts"},
-      {"id":2,"text":"Delamination of layers"},
-      {"id":3,"text":"Layer offset"},
-      {"id":4,"text":"Poor material quality"},
-      {"id":5,"text":"Operator error"}
+      {"id":1,"text":"Parts damaged"},
+      {"id":2,"text":"Poor quality of parts"},
+      {"id":3,"text":"Screw thread faulty"},
+      {"id":5,"text":"Worker error"}
     ]
   }
 }

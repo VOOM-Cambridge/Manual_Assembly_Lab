@@ -1,13 +1,13 @@
 {
   "reasons":{
     "rework":[
-      {"id":1,"text":"Seperation in reel"},
-      {"id":2,"text":"Poor storage"}
+      {"id":1,"text":"Bad surface finish"},
+      {"id":2,"text":"Poor quality"}
     ],
     "scrap":[
       {"id":1,"text":"Material degraded"},
       {"id":2,"text":"Poor quality"},
-      {"id":3,"text":"Poor storage"},
+      {"id":3,"text":"Incorrect part"},
       {"id":4,"text":"Damaged in delivery"}
     ]
   }
