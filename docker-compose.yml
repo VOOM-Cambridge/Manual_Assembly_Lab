@@ -1,5 +1,6 @@
 version: "2"
 
+
 services:
     timeseries-db:
         extends:
@@ -22,9 +23,9 @@ services:
                 aliases:
                     - fault-dc.docker.local
         logging:
-                driver: syslog
-                options:
-                        tag: docker-fault-dc
+            driver: syslog
+            options:
+                tag: docker-fault-dc
         restart: unless-stopped
         depends_on:
             - "mqtt_broker"
@@ -60,6 +61,38 @@ services:
         depends_on:
             - "timeseries-db"
             - "mqtt_broker"
+    timeseries-db-input-track:
+        extends:
+            file: timeseries_sds/app.yml
+            service: telegraf_tracking
+        networks:
+            internal:
+                aliases:
+                    - timeseries-input-track.docker.local
+        logging:
+            driver: syslog
+            options:
+                tag: docker-timeseries-input-track
+        restart: unless-stopped
+        depends_on:
+            - "timeseries-db"
+            - "mqtt_broker"
+    timeseries-db-input-worker:
+        extends:
+            file: timeseries_sds/app.yml
+            service: telegraf_worker
+        networks:
+            internal:
+                aliases:
+                    - timeseries-input-worker.docker.local
+        logging:
+            driver: syslog
+            options:
+                tag: docker-timeseries-input-worker
+        restart: unless-stopped
+        depends_on:
+            - "timeseries-db"
+            - "mqtt_broker"
     dashboard:
         extends:
             file: dashboard_ui/app.yml
@@ -88,10 +121,10 @@ services:
         depends_on:
             - "mqtt_broker"
             - "timeseries-db"
-    workerTracking:
+    worker-tracking-app:
         extends:
-            file: workerTracking/app.yml
-            service: workerTracking
+            file: worker_tracking/app.yml
+            service: worker_tracking
         networks:
             internal:
                 aliases:
@@ -120,5 +153,5 @@ services:
 
 networks:
     internal:
-        name: robotLab
+        name: manualLab
         external: true
